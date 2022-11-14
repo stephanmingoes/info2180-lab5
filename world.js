@@ -14,6 +14,14 @@ function getSpecificCountry(country) {
     .then((data) => data)
     .catch((err) => err);
 }
+function getCity(country) {
+  return fetch(
+    `http://localhost/info2180-lab5/world.php?country=${country}&lookup=cities`
+  )
+    .then((result) => result.text())
+    .then((data) => data)
+    .catch((err) => err);
+}
 
 function searchCountries(search) {
   let newSearch = sanitizeInput(search);
@@ -23,6 +31,11 @@ function searchCountries(search) {
 
 document.getElementById("lookup").addEventListener("click", () => {
   searchCountries(document.getElementById("country").value).then(
+    (data) => (document.getElementById("result").innerHTML = data)
+  );
+});
+document.getElementById("lookup-city").addEventListener("click", () => {
+  getCity(document.getElementById("country").value).then(
     (data) => (document.getElementById("result").innerHTML = data)
   );
 });
